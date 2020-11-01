@@ -1,7 +1,7 @@
 import pool from "../dbconfig/dbconnector";
 
 class TodosController {
-  public async get(req, res) {
+  public async getAllTodos(req, res) {
     try {
       const client = await pool.connect();
 
