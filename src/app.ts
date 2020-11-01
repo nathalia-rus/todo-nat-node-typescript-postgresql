@@ -1,3 +1,4 @@
+require("dotenv").config();
 import server from "./server";
 
 const port = parseInt(process.env.PORT || "4000");
