@@ -13,6 +13,8 @@ class TodosController {
 
       client.release();
 
+      console.log(" TODOS RECEIVED !!", todos);
+
       res.send(todos);
     } catch (error) {
       res.status(400).send(error);
