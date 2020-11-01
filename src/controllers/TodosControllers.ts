@@ -1,19 +1,23 @@
 import pool from "../dbconfig/dbconnector";
 
-// class TodosController {
+class TodosController {
+  public async get(req, res) {
+    try {
+      const client = await pool.connect();
 
-//   public async get(req, res) {
+      const sql = "SELECT * FROM todos";
 
-//  try {
+      const { rows } = await client.query(sql);
 
-//   const client = await pool.connect();
+      const todos = rows;
 
-//   const sql = "SELECT * FROM todos";
+      client.release();
 
-//   const { rows} = await client.query(sql)
+      res.send(todos);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+}
 
-//  }
-
-//   }
-
-// }
+export default TodosController;
