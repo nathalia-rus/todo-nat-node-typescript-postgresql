@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import todosRouter from "./routers/TodosRouter";
 import pool from "./dbconfig/dbconnector";
 
+const csp = require("helmet-csp");
+
 class Server {
   private app;
 
@@ -14,6 +16,17 @@ class Server {
   }
 
   private config() {
+    this.app.use(
+      csp({
+        directives: {
+          defaultSrc: ["'self'", "default.example"],
+          scriptSrc: ["'self'", "'unsafe-inline'"],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+        },
+        reportOnly: false,
+      })
+    );
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json({ limit: "1mb" })); // 100kb default
   }
