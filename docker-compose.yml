@@ -1,0 +1,12 @@
+version: "3"
+services: 
+  todo-nat-psql
+  container_name: todo-nat-psql
+  build:
+    context: .
+    dockerfile: .Dockerfile 
+  depends_on:
+    - postgres
+  environment:
+    postgresql://localhost/postgres?user=postgres&password=secret
+    
