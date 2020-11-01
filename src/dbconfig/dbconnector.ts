@@ -1,7 +1,7 @@
 var Pool = require("pg-pool");
 
 export default new Pool({
-  database: "postgres",
+  database: "dev-postgres",
   user: "postgres",
   password: "secret!",
   port: 5432,
