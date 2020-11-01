@@ -1,9 +1,8 @@
 import express, { Application, Router } from "express";
 import bodyParser from "body-parser";
-import todosRouter from "./routers/TodosRouter";
+const router = require("./routers/TodosRouter");
 import pool from "./dbconfig/dbconnector";
-
-const csp = require("helmet-csp");
+const helmet = require("helmet");
 
 class Server {
   private app;
@@ -16,15 +15,15 @@ class Server {
   }
 
   private config() {
+    // Sets "Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none'"
     this.app.use(
-      csp({
+      helmet.contentSecurityPolicy({
         directives: {
-          defaultSrc: ["'self'", "default.example"],
-          scriptSrc: ["'self'", "'unsafe-inline'"],
-          objectSrc: ["'none'"],
-          upgradeInsecureRequests: [],
+          "default-src": ["'self'"],
+          "script-src": ["'self'", "example.com"],
+          "object-src": ["'none'"],
+          "img-src": ["'self'"],
         },
-        reportOnly: false,
       })
     );
     this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,7 +38,9 @@ class Server {
   }
 
   private routerConfig() {
-    this.app.use("/todos", todosRouter);
+    // this.app.use("/todos", todosRouter);
+
+    this.app.use(router);
   }
 
   public start = (port: number) => {

@@ -8,4 +8,4 @@ const todosController = new TodosController();
 
 router.get("/todos", todosController.getAllTodos);
 
-export default router;
+module.exports = router;
