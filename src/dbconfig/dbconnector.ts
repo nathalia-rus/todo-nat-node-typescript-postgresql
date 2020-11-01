@@ -5,7 +5,7 @@ export default new Pool({
   user: "postgres",
   password: "secret!",
   port: 5432,
-  ssl: true,
+  host: "172.17.0.4",
   max: 20, // set pool max size to 20
   idleTimeoutMillis: 1000, // close idle clients after 1 second
   connectionTimeoutMillis: 1000, // return an error after 1 second if connection could not be established
